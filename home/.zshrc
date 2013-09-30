@@ -15,4 +15,8 @@ PATH=$PATH:$HOME/bin
 
 alias gpr="git --no-pager lg HEAD --not $1"
 
+if [[ "$TERM" == "xterm" ]]; then
+    export TERM=xterm-256color
+fi
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
