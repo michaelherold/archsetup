@@ -1,0 +1,6 @@
+.idea
+*.sublime-workspace
+*.sublime-project
+*~
+custom_plan.rb
+zeus.json

@@ -16,3 +16,6 @@
     upload = false
 [github]
     user = michaelherold
+[core]
+	excludesfile = /home/herold/.gitignore
+	filemode = false
