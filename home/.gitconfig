@@ -20,4 +20,8 @@
 [core]
 	excludesfile = /home/herold/.gitignore
 [color]
-	ui = true
+    ui = true
+
+# Requires git 1.7.10.2+
+[include]
+    path = ~/.gitconfig-local
