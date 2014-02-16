@@ -10,6 +10,7 @@
     both = diff HEAD
     amend = commit --amend
     lg = log --graph --pretty=format:'%Cred%h%Creset %Cblue<%ae>%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	undo-commit = reset --soft HEAD^
 [credential]
     helper = cache --timeout=3600
 [achievement]
@@ -18,4 +19,5 @@
     user = michaelherold
 [core]
 	excludesfile = /home/herold/.gitignore
-	filemode = false
+[color]
+	ui = true
