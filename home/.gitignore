@@ -4,3 +4,5 @@
 *~
 custom_plan.rb
 zeus.json
+.respec_failures
+.rspec
