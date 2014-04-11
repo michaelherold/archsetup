@@ -29,3 +29,5 @@ eval "$(rbenv init -)"
 # pyenv
 PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
+
+PATH="$HOME/bin:$PATH"
