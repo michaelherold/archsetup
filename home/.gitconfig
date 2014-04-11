@@ -16,6 +16,8 @@
     upload = false
 [github]
     user = michaelherold
+[color]
+    ui = true
 [core]
 	excludesfile = /home/herold/.gitignore
 	filemode = false
