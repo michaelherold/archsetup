@@ -10,7 +10,8 @@
     both = diff HEAD
     amend = commit --amend
     lg = log --graph --pretty=format:'%Cred%h%Creset %Cblue<%ae>%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-	undo-commit = reset --soft HEAD^
+    undo-commit = reset --soft HEAD^
+    cleanup = "!git branch --merged | grep -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
 [credential]
     helper = cache --timeout=3600
 [achievement]
