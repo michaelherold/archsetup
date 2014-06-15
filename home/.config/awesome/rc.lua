@@ -92,9 +92,9 @@ naughty.config.defaults.ontop           = true
 naughty.config.defaults.font            = 'Droid Sans 10'
 naughty.config.defaults.icon            = nil
 naughty.config.defaults.icon_size       = 256
-naughty.config.defaults.fg              = beautiful.fg_tooltip
-naughty.config.defaults.bg              = beautiful.bg_tooltip
-naughty.config.defaults.border_color    = beautiful.border_tooltip
+naughty.config.defaults.fg              = beautiful.fg_focus
+naughty.config.defaults.bg              = beautiful.bg_focus
+naughty.config.defaults.border_color    = beautiful.border_focus
 naughty.config.defaults.border_width    = 2
 naughty.config.defaults.hover_timeout   = nil
 
@@ -115,6 +115,27 @@ for s = 1, screen.count() do
   -- Each screen has its own tag table.
   tags[s] = awful.tag({1, 2, 3, 4, 5, 6, 7, 8, 9}, s, layouts[1])
 end
+-- }}}
+-- => Wallpaper Changer {{{
+local wallpaper_menu = {}
+local function wallpaper_load(wallpaper)
+  local config_dir = awful.util.getdir('config')
+  local f = io.popen('ln -sfn ' .. config_dir .. '/wallpapers/' .. wallpaper ..
+                     ' ' .. config_dir .. '/themes/default/bg.png')
+  awesome.restart()
+end
+
+local function populate_wallpaper_menu()
+  local f = io.popen('ls -1 ' .. awful.util.getdir('config') .. '/wallpapers/')
+ 
+  for l in f:lines() do
+    local item = {l, function () wallpaper_load(l) end}
+    table.insert(wallpaper_menu, item)
+  end
+ 
+  f:close()
+end
+populate_wallpaper_menu()
 -- }}}
 -- => Menu {{{
 -- ====================================================================
@@ -287,7 +308,6 @@ globalkeys = awful.util.table.join(
               awful.client.focus.byidx(-1)
               if client.focus then client.focus:raise() end
             end),
-  awful.key({modkey,          }, 'w', function () main_menu:show() end),
 
   -- Layout manipulation
   awful.key({modkey, 'Shift'  }, 'j', function () awful.client.swap.byidx(  1)    end),
@@ -509,29 +529,4 @@ end)
 
 client.connect_signal('focus', function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal('unfocus', function(c) c.border_color = beautiful.border_normal end)
--- }}}
--- => Extras {{{
--- ====================================================================
-
--- Wallpaper Changer
-local wallpaper_menu = {}
-local function wallpaper_load(wallpaper)
-  local config_dir = awful.util.getdir('config')
-  local f = io.popen('ln -sfn ' .. config_dir .. '/wallpapers/' .. wallpaper ..
-                     ' ' .. config_dir .. '/themes/default/bg.png')
-  awesome.restart()
-end
-
-local function populate_wallpaper_menu()
-  local f = io.popen('ls -1 ' .. awful.util.getdir('config') .. '/wallpapers/')
- 
-  for l in f:lines() do
-    local item = {l, function () wallpaper_load(l) end}
-    table.insert(wallpaper_menu, item)
-  end
- 
-  f:close()
-end
-populate_wallpaper_menu()
-
 -- }}}
