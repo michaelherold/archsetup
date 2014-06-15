@@ -177,6 +177,16 @@ weather_format = '${city}: ' ..
                  '${windmph}mph.'
 vicious.register(weather, vicious.widgets.weather, weather_format, 1800, 'KLBB')
 
+-- CPU {{{
+
+cpu_icon = wibox.widget.imagebox()
+cpu_icon:set_image(beautiful.widget_cpu)
+
+cpu = wibox.widget.textbox()
+vicious.register(cpu, vicious.widgets.cpu, "All: $1% 1: $2% 2: $3% 3: $4% 4: $5%", 2)
+
+-- }}}
+
 -- Pacman {{{
 pacman_icon = wibox.widget.imagebox()
 pacman_icon:set_image(beautiful.widget_pacman_default)
@@ -229,29 +239,13 @@ vicious.register(volume_percent, vicious.widgets.volume, '$1%', nil, 'Master')
 volume_icon:buttons(awful.util.table.join(
   awful.button({}, 1, function () awful.util.spawn_with_shell('amixer -q set Master toggle') end),
   awful.button({}, 4, function () awful.util.spawn_with_shell('amixer -q set Master 3+% unmute') end),
-  awful.button({}, 5, function () awful.util.spawn_with_shell('amixer -q set Master 30% unmute') end)
+  awful.button({}, 5, function () awful.util.spawn_with_shell('amixer -q set Master 3-% unmute') end)
 ))
 volume_percent:buttons(volume_icon:buttons())
 volume_spacer:buttons(volume_icon:buttons())
 
 -- }}}
 
--- Calendar {{{
-
-require('calendar2')
-calendar2.addCalendarToWidget(clock)
-
--- }}}
-
--- CPU {{{
-
-cpu_icon = wibox.widget.imagebox()
-cpu_icon:set_image(beautiful.widget_cpu)
-
-cpu = wibox.widget.textbox()
-vicious.register(cpu, vicious.widgets.cpu, "All: $1% 1: $2% 2: $3% 3: $4% 4: $5%", 2)
-
--- }}}
 -- }}}
 -- => Wibox {{{
 -- ====================================================================
