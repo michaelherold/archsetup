@@ -121,7 +121,7 @@ local wallpaper_menu = {}
 local function wallpaper_load(wallpaper)
   local config_dir = awful.util.getdir('config')
   local f = io.popen('ln -sfn ' .. config_dir .. '/wallpapers/' .. wallpaper ..
-                     ' ' .. config_dir .. '/themes/default/bg.png')
+                     ' ' .. config_dir .. '/themes/default/background.png')
   awesome.restart()
 end
 
