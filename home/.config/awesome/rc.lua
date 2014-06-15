@@ -1,3 +1,6 @@
+-- => Initialization and Modules {{{
+-- ====================================================================
+
 -- Standard awesome library
 local gears = require('gears')
 local awful = require('awful')
@@ -23,6 +26,7 @@ freedesktop.utils.icon_theme = {'faenza', 'gnome'}
 -- Vicious (Widgets)
 vicious = require('vicious')
 
+-- }}}
 -- => Error handling {{{
 -- ====================================================================
 -- Check if awesome encountered an error during startup and fell back to
@@ -173,6 +177,81 @@ weather_format = '${city}: ' ..
                  '${windmph}mph.'
 vicious.register(weather, vicious.widgets.weather, weather_format, 1800, 'KLBB')
 
+-- Pacman {{{
+pacman_icon = wibox.widget.imagebox()
+pacman_icon:set_image(beautiful.widget_pacman_default)
+
+pacman = wibox.widget.textbox()
+vicious.register(pacman, vicious.widgets.pkg, function (widget, args)
+  if args[1] > 0 then
+    pacman_icon:set_image(beautiful.widget_pacman_new)
+  else
+    pacman_icon:set_image(beautiful.widget_pacman_default)
+  end
+
+  return args[1]
+end, 1800, 'Arch S')
+
+function pacman_popup()
+  local pacman_updates = ''
+  local f = io.popen('pacman -Sup --dbpath /tmp/pacsync')
+
+  if f then
+    pacman_updates = f:read('*a'):match('.*/(.*)-.*\n$')
+  end
+  
+  f:close()
+
+  if not pacman_updates then
+    pacman_updates = 'System is up-to-date'
+  end
+
+  naughty.notify({text = pacman_updates})
+end
+
+pacman:buttons(awful.util.table.join(awful.button({}, 1, pacman_popup)))
+pacman_icon:buttons(pacman:buttons())
+-- }}}
+
+-- Volume {{{
+
+vicious.cache(vicious.widgets.volume)
+
+volume_spacer = wibox.widget.textbox()
+volume_spacer:set_text(' ')
+
+volume_icon = wibox.widget.imagebox()
+volume_icon:set_image(beautiful.widget_volume)
+
+volume_percent = wibox.widget.textbox()
+vicious.register(volume_percent, vicious.widgets.volume, '$1%', nil, 'Master')
+
+volume_icon:buttons(awful.util.table.join(
+  awful.button({}, 1, function () awful.util.spawn_with_shell('amixer -q set Master toggle') end),
+  awful.button({}, 4, function () awful.util.spawn_with_shell('amixer -q set Master 3+% unmute') end),
+  awful.button({}, 5, function () awful.util.spawn_with_shell('amixer -q set Master 30% unmute') end)
+))
+volume_percent:buttons(volume_icon:buttons())
+volume_spacer:buttons(volume_icon:buttons())
+
+-- }}}
+
+-- Calendar {{{
+
+require('calendar2')
+calendar2.addCalendarToWidget(clock)
+
+-- }}}
+
+-- CPU {{{
+
+cpu_icon = wibox.widget.imagebox()
+cpu_icon:set_image(beautiful.widget_cpu)
+
+cpu = wibox.widget.textbox()
+vicious.register(cpu, vicious.widgets.cpu, "All: $1% 1: $2% 2: $3% 3: $4% 4: $5%", 2)
+
+-- }}}
 -- }}}
 -- => Wibox {{{
 -- ====================================================================
@@ -258,6 +337,17 @@ for s = 1, screen.count() do
   -- Widgets that are aligned to the right
   local right_layout = wibox.layout.fixed.horizontal()
   if s == 1 then right_layout:add(wibox.widget.systray()) end
+  right_layout:add(pacman_icon)
+  right_layout:add(pacman)
+
+  right_layout:add(spacer)
+
+  right_layout:add(volume_icon)
+  right_layout:add(volume_percent)
+  right_layout:add(volume_spacer)
+
+  right_layout:add(spacer)
+
   right_layout:add(clock)
   right_layout:add(layout_box[s])
 
@@ -273,6 +363,11 @@ for s = 1, screen.count() do
   info_wibox[s] = awful.wibox({position = 'bottom', screen = s})
 
   local infobox_layout = wibox.layout.fixed.horizontal()
+  infobox_layout:add(cpu_icon)
+  infobox_layout:add(cpu)
+
+  infobox_layout:add(spacer)
+
   infobox_layout:add(weather)
 
   info_wibox[s]:set_widget(infobox_layout)
@@ -331,7 +426,7 @@ globalkeys = awful.util.table.join(
   awful.key({modkey, 'Control'}, 'l',     function () awful.tag.incncol(-1)         end),
   awful.key({modkey,          }, 'space', function () awful.layout.inc(layouts,  1) end),
   awful.key({modkey, 'Shift'  }, 'space', function () awful.layout.inc(layouts, -1) end),
-  awful.key({modkey,          }, 'w',     function () awful.util.spawn('chromium')  end, 'Start Chromium'),
+  awful.key({modkey,          }, 'w',     function () awful.util.spawn('chromium')  end),
 
   awful.key({modkey, 'Control'}, 'n', awful.client.restore),
 

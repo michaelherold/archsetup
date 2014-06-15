@@ -1,6 +1,5 @@
--- arch, awesome3 theme
-
---{{{ Main
+-- => Initialization and Modules {{{
+-- ====================================================================
 local awful = require('awful')
 awful.util = require('awful.util')
 
@@ -35,8 +34,9 @@ elseif awful.util.file_readable(wpscript) then
 else
   theme.wallpaper = wallpaper_default
 end
---}}}
-
+-- }}}
+-- => Fonts and Colors {{{
+-- ====================================================================
 theme.font          = 'Droid Sans 8'
 
 theme.bg_normal     = '#000000'
@@ -57,35 +57,27 @@ theme.border_focus  = '#1793d1'
 theme.border_marked = '#91231c'
 theme.border_tooltip = theme.border_focus
 
--- There are other variable sets
--- overriding the default one when
--- defined, the sets are:
--- [taglist|tasklist]_[bg|fg]_[focus|urgent]
--- titlebar_[bg|fg]_[normal|focus]
--- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
--- mouse_finder_[color|timeout|animate_timeout|radius|factor]
--- Example:
---theme.taglist_bg_focus = '#ff0000'
+-- }}}
+-- => Tag- and Tasklist Icons {{{
+-- ====================================================================
 
--- Display the taglist squares
 theme.taglist_squares_sel   = sharedthemes .. '/default/taglist/squarefw.png'
 theme.taglist_squares_unsel = sharedthemes .. '/default/taglist/squarew.png'
 
 theme.tasklist_floating_icon = sharedthemes .. '/default/tasklist/floatingw.png'
 
--- Variables set for theming the menu:
--- menu_[bg|fg]_[normal|focus]
--- menu_[border_color|border_width]
+-- }}}
+-- => Menu Configuration {{{
+-- ====================================================================
+
 theme.menu_submenu_icon = sharedthemes .. '/default/submenu.png'
 theme.menu_height = '15'
 theme.menu_width  = '100'
 
--- You can add as many variables as
--- you wish and access them by using
--- beautiful.variable in your rc.lua
---theme.bg_widget = '#cc0000'
+-- }}}
+-- => Titlebar Icons {{{
+-- ====================================================================
 
--- Define the image to load
 theme.titlebar_close_button_normal = sharedthemes .. '/default/titlebar/close_normal.png'
 theme.titlebar_close_button_focus  = sharedthemes .. '/default/titlebar/close_focus.png'
 
@@ -109,7 +101,10 @@ theme.titlebar_maximized_button_focus_inactive  = sharedthemes .. '/default/titl
 theme.titlebar_maximized_button_normal_active = sharedthemes .. '/default/titlebar/maximized_normal_active.png'
 theme.titlebar_maximized_button_focus_active  = sharedthemes .. '/default/titlebar/maximized_focus_active.png'
 
--- You can use your own layout icons like this:
+-- }}}
+-- => Layout Icons {{{
+-- ====================================================================
+
 theme.layout_fairh = sharedthemes .. '/default/layouts/fairhw.png'
 theme.layout_fairv = sharedthemes .. '/default/layouts/fairvw.png'
 theme.layout_floating  = sharedthemes .. '/default/layouts/floatingw.png'
@@ -123,7 +118,20 @@ theme.layout_tiletop = sharedthemes .. '/default/layouts/tiletopw.png'
 theme.layout_spiral  = sharedthemes .. '/default/layouts/spiralw.png'
 theme.layout_dwindle = sharedthemes .. '/default/layouts/dwindlew.png'
 
+-- }}}
+-- => Widget Icons {{{
+
+theme.widget_cpu            = themedir .. '/widgets/cpu.png'
+theme.widget_pacman_new     = themedir .. '/widgets/pacman_new.png'
+theme.widget_pacman_default = themedir .. '/widgets/pacman_default.png'
+theme.widget_volume         = themedir .. '/widgets/volume.png'
+
+-- }}}
+-- => Finalization {{{
+-- ====================================================================
+
 theme.awesome_icon = themedir .. '/awesome16.png'
 
 return theme
+-- }}}
 -- vim: filetype=lua:expandtab:shiftwidth=2:tabstop=2:softtabstop=2:encoding=utf-8:textwidth=80
