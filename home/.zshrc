@@ -23,11 +23,17 @@ fi
 export ANSIBLE_NOCOWS=1
 
 # rbenv
-PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+RBENVPATH=$HOME/.rbenv
+if [ -d "$RBENVPATH" ]; then
+  PATH="$RBENVPATH/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
 
 # pyenv
-PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
+PYENVPATH=$HOME/.pyenv
+if [ -d "$PYENVPATH" ]; then
+  PATH="$PYENVPATH/bin:$PATH"
+  eval "$(pyenv init -)"
+fi
 
 PATH="$HOME/bin:$PATH"
