@@ -37,6 +37,8 @@ if [ -d $HOME/.xinitrc.d ] ; then
   done
 fi
 
+compton --config ~/.i3/compton.conf &
+
 WM=i3
 
 STARTUP="$STARTUP $WM"
