@@ -39,7 +39,7 @@ fi
 
 compton --config ~/.i3/compton.conf &
 
-WM=i3
+WM=herbstluftwm
 
 STARTUP="$STARTUP $WM"
 exec $STARTUP
