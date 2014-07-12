@@ -24,6 +24,11 @@ fi
 # Turn off Ansible cowspeak
 export ANSIBLE_NOCOWS=1
 
+# Homeshick
+if [ -d "$HOME/.homesick/repos/homeshick/" ]; then
+  source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+fi
+
 # rbenv
 RBENVPATH=$HOME/.rbenv
 if [ -d "$RBENVPATH" ]; then
