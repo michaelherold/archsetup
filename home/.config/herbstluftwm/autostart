@@ -16,10 +16,10 @@ function _hc() {
 _hc chain , emit_hook reload , keyunbind --all , mouseunbind --all
 
 # }}}
-# => Autostart {{{
+# => Screen Configuration {{{
 # ====================================================================
 
-( feh --bg-fill ${CONFIG_PATH}/wallpaper.jpg)
+herbstclient detect_monitors
 
 # }}}
 # => Tags {{{
@@ -172,6 +172,8 @@ _hc rule windowtype~'_NET_WM_WINDOW_TYPE_(FULLSCREEN|FS)' fullscreen=on
 # }}}
 # => Runtime {{{
 # ====================================================================
+
+( feh --bg-fill ${CONFIG_PATH}/wallpaper.jpg)
 
 panel=${CONFIG_PATH}/panel.sh
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
