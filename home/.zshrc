@@ -15,6 +15,8 @@ alias gpr="git --no-pager lg HEAD --not $1"
 alias rmig="rake db:migrate && rake db:migrate RAILS_ENV=test"
 alias rroll="rake db:rollback && rake db:rollback RAILS_ENV=test"
 
+svim() { sudo vim -u /home/herold/.vimrc @$ };
+
 if [[ "$TERM" == "xterm" ]]; then
     export TERM=xterm-256color
 fi
