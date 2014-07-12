@@ -1,5 +1,5 @@
 [user]
-	name = Michael Herold
+    name = Michael Herold
     email = michael.j.herold@gmail.com
 [alias]
     st = status
@@ -12,18 +12,14 @@
     lg = log --graph --pretty=format:'%Cred%h%Creset %Cblue<%ae>%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     undo-commit = reset --soft HEAD^
     cleanup = "!git branch --merged | grep -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
-[credential]
-    helper = cache --timeout=3600
-[achievement]
-    upload = false
-[github]
-    user = michaelherold
 [color]
     ui = true
 [core]
-	excludesfile = /home/herold/.gitignore
-[color]
-    ui = true
+    excludesfile = /home/herold/.gitignore
+[credential]
+    helper = cache --timeout=3600
+[github]
+    user = michaelherold
 
 # Requires git 1.7.10.2+
 [include]
