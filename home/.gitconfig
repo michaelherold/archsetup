@@ -28,3 +28,5 @@
 # Requires git 1.7.10.2+
 [include]
     path = ~/.gitconfig-local
+[push]
+    default = upstream
