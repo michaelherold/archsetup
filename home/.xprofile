@@ -50,7 +50,7 @@ case "$HOSTNAME" in
     ;;
 esac
 
-compton --config ~/.i3/compton.conf &
+compton --config ~/.config/compton.conf &
 
 WM=herbstluftwm
 
