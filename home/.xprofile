@@ -37,7 +37,7 @@ if [ -d $HOME/.xinitrc.d ] ; then
   done
 fi
 
-WM=i3
+WM=herbstluftwm
 
 STARTUP="$STARTUP $WM"
 exec $STARTUP
