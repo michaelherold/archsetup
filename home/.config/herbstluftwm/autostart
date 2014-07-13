@@ -1,0 +1,187 @@
+#!/bin/bash
+# vim: set fileencodig=utf-8 ts=2 sts=2 sw=2 tw=80 expandtab :
+
+# => Global Settings {{{
+# ====================================================================
+
+CACHE_PATH=${XDG_CACHE_HOME:-~/.cache}
+CONFIG_PATH=${XDG_CONFIG_HOME:-~/.config}/herbstluftwm
+DATA_PATH=${XDG_DATA_HOME:-~/.local/share}/herbstluftwm
+SCRIPTS=${CONFIG_PATH}/scripts
+
+function _hc() {
+  ex="${ex} , ${@}"
+}
+
+_hc chain , emit_hook reload , keyunbind --all , mouseunbind --all
+
+# }}}
+# => Autostart {{{
+# ====================================================================
+
+( feh --bg-fill ${CONFIG_PATH}/wallpaper.jpg)
+
+# }}}
+# => Tags {{{
+# ====================================================================
+
+TAG_NAMES=( {1..9} )
+TAG_KEYS=( {1..9} 0 )
+
+_hc rename default "${TAG_NAMES[0]}" || true
+for i in ${!TAG_NAMES[@]} ; do
+  _hc add "${TAG_NAMES[$i]}"
+  key="${TAG_KEYS[$i]}"
+  if ! [ -z "$key" ] ; then
+    _hc keybind "$Mod-$key" use "${TAG_NAMES[$i]}"
+    _hc keybind "$Mod-Shift-$key" move "${TAG_NAMES[$i]}"
+  fi
+done
+
+# }}}
+# => Keybindings {{{
+# ====================================================================
+
+Mod=Mod4
+
+_hc keybind $Mod-Shift-q quit
+_hc keybind $Mod-Shift-r reload
+_hc keybind $Mod-q close
+
+# Applications
+_hc keybind $Mod-Return spawn urxvt
+_hc keybind $Mod-space spawn dmenu_run -p "run:"
+
+# Media Keys
+_hc keybind XF86AudioNext  spawn mpc next
+_hc keybind XF86AudioPrev  spawn mpc prev
+_hc keybind XF86AudioPlay  spawn mpc toggle
+_hc keybind XF86AudioStop  spawn mpc stop
+
+_hc keybind XF86AudioRaiseVolume spawn dvol -i 5
+_hc keybind XF86AudioLowerVolume spawn dvol -d 5
+_hc keybind XF86AudioMute spawn dvol -t
+
+_hc keybind XF86AudioMedia spawn urxvt -e ncmpcpp
+
+# Layouting
+_hc keybind $Mod-r       remove
+_hc keybind $Mod-c       cycle_layout 1
+_hc keybind $Mod-s       split vertical 0.5
+_hc keybind $Mod-Shift-s split horizontal 0.5
+_hc keybind $Mod-Shift-f floating toggle
+_hc keybind $Mod-f       fullscreen toggle
+_hc keybind $Mod-p       pseudotile toggle
+_hc keybind $Mod-t       spawn ${SCRIPTS}/togglegap.sh
+
+# Resizing
+RESIZESTEP=0.05
+_hc keybind $Mod-Control-h       resize left +$RESIZESTEP
+_hc keybind $Mod-Control-j       resize down +$RESIZESTEP
+_hc keybind $Mod-Control-k       resize up +$RESIZESTEP
+_hc keybind $Mod-Control-l       resize right +$RESIZESTEP
+
+# Mouse
+_hc mousebind $Mod-Button1 move
+_hc mousebind $Mod-Button2 resize
+_hc mousebind $Mod-Button3 zoom
+
+# Movement and Focus
+_hc keybind $Mod-BackSpace cycle_monitor
+_hc keybind $Mod-Tab       cycle_all +1
+_hc keybind $Mod-Shift-Tab cycle_all -1
+_hc keybind $Mod-h         focus left
+_hc keybind $Mod-j         focus down
+_hc keybind $Mod-k         focus up
+_hc keybind $Mod-l         focus right
+_hc keybind $Mod-Shift-h   shift left
+_hc keybind $Mod-Shift-j   shift down
+_hc keybind $Mod-Shift-k   shift up
+_hc keybind $Mod-Shift-l   shift right
+_hc keybind $Mod-i         jumpto urgent
+_hc keybind $Mod-n         spawn ${SCRIPTS}/tagswitch.sh next
+_hc keybind $Mod-p         spawn ${SCRIPTS}/tagswitch.sh prev
+
+# Cycle through tags
+_hc keybind $Mod-period use_index +1 --skip-visible
+_hc keybind $Mod-comma  use_index -1 --skip-visible
+
+# }}}
+# => Theme {{{
+# ====================================================================
+
+_hc set frame_border_active_color '#519f50'
+_hc set frame_border_normal_color '#101010'
+_hc set window_border_active_color '#a5c261'
+_hc set window_border_normal_color '#161616'
+_hc set window_border_urgent_color '#da4939'
+
+# }}}
+# => Layouts {{{
+# ====================================================================
+
+if [ $(cat ${DATA_PATH}/gap) = 0 ]; then
+  _hc set window_gap 0
+else
+  _hc set window_gap 4
+fi
+
+for tag in ${TAG_NAMES}; do
+  layout_file=${DATA_PATH}/layout/${tag}
+
+  if [ -f ${layout_file} ]; then
+    _hc load ${tag} $(cat ${layout_file})
+  fi
+done
+
+# }}}
+# => Settings {{{
+# ====================================================================
+
+_hc set always_show_frame 1
+_hc set frame_bg_transparent 1
+_hc set frame_border_width 2
+_hc set frame_gap 0
+_hc set frame_padding 2
+_hc set frame_transparent_width 2
+_hc set gapless_grid 1
+_hc set mouse_recenter_gap 0
+_hc set smart_frame_surroundings 0
+_hc set smart_window_surroundings 0
+_hc set window_border_width 1
+_hc set window_border_inner_width 0
+_hc set window_gap -2
+
+#_hc detect_monitors
+#_hc pad 0 30 0 0 0
+
+_hc set tree_style '╾│ ├└╼─┐'
+
+# }}}
+# => Rules {{{
+# ====================================================================
+
+_hc unrule -F
+_hc rule focus=on
+
+_hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
+_hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+_hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+_hc rule windowtype~'_NET_WM_WINDOW_TYPE_(FULLSCREEN|FS)' fullscreen=on
+
+# }}}
+# => Runtime {{{
+# ====================================================================
+
+panel=${CONFIG_PATH}/panel.sh
+[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
+  "$panel" $monitor &
+done
+
+_hc unlock
+_hc emit_hook complete
+
+herbstclient chain ${ex}
+
+# }}}
