@@ -14,6 +14,9 @@ fi
 alias gpr="git --no-pager lg HEAD --not $1"
 alias rmig="rake db:migrate && rake db:migrate RAILS_ENV=test"
 alias rroll="rake db:rollback && rake db:rollback RAILS_ENV=test"
+alias tml="tmux list-sessions"
+alias tma="tmux -2 attach -t $1"
+alias tmk="tmux kill-session -t $1"
 
 svim() { sudo vim -u /home/herold/.vimrc @$ };
 
