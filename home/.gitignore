@@ -1,9 +1,0 @@
-.idea
-*.sublime-workspace
-*.sublime-project
-*~
-.respec_failures
-custom_plan.rb
-zeus.json
-.respec_failures
-.rspec
