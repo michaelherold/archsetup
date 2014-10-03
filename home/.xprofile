@@ -1,42 +1,10 @@
 #!/bin/bash
-#
-# ~/.xinitrc
-#
-# Executed by startx (run your window manager from here)
-
-CONFIGDIR=/etc/X11/xinit
-
-XDEFAULTS=$HOME/.Xdefaults
-XMODMAP=$HOME/.Xmodmap
-XRESOURCES=$HOME/.Xresources
 
 HOSTNAME=$(hostname)
-
-# Merge in defaults and keymaps
-if [ -f "$XDEFAULTS" ] ; then
-  xrdb -load $XDEFAULTS
-fi
-
-if [ -f "$XRESOURCES" ] ; then
-  xrdb -merge $XRESOURCES
-fi
+XMODMAP=$HOME/.Xmodmap
 
 if [ -f "$XMODMAP" ] ; then
   xmodmap "$XMODMAP"
-fi
-
-# Start global apps
-if [ -d $CONFIGDIR/xinitrc.d ] ; then
-  for f in $CONFIGDIR/xinitrc.d/?* ; do
-    [ -x "$f" ] && . "$f"
-  done
-fi
-
-# Start user apps
-if [ -d $HOME/.xinitrc.d ] ; then
-  for f in $HOME/.xinitrc.d/?* ; do
-    [ -x "$f" ] && . "$f"
-  done
 fi
 
 case "$HOSTNAME" in
@@ -51,8 +19,3 @@ case "$HOSTNAME" in
 esac
 
 compton --config ~/.config/compton.conf &
-
-WM=herbstluftwm
-
-STARTUP="$STARTUP $WM"
-exec $STARTUP
