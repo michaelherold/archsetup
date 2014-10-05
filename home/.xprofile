@@ -3,6 +3,10 @@
 HOSTNAME=$(hostname)
 XMODMAP=$HOME/.Xmodmap
 
+xsetroot -cursor_name left_ptr
+xset +fp /usr/share/fonts/local
+xset fp rehash
+
 if [ -f "$XMODMAP" ] ; then
   xmodmap "$XMODMAP"
 fi
