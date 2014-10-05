@@ -1,0 +1,48 @@
+#! /bin/sh
+#
+# Example panel for LemonBoy's bar
+
+source $(dirname $0)/panel.cfg
+
+while read -r line ; do
+	case $line in
+		S*)
+			# clock output
+			SYSTEM_INFO="%{r}${line#?} "
+			;;
+		T*)
+			# xNAME output
+			NAME=" %{F$COLOR_ICON}%{F-} bspwm"
+			;;
+		W*)
+			# bspwm internal state
+			WM_INFO="%{c}"
+			IFS=':'
+			set -- ${line#?}
+			while [ $# -gt 0 ] ; do
+				item=$1
+				name=${item#?}
+				case $item in
+					[OFU]*)
+						# active desktop
+						WM_INFO="${WM_INFO}%{U$COLOR_ACTIVE}%{+u} ${name} %{-u}%{F-}"
+						;;
+					o*)
+						# inactive, occupied desktop
+						WM_INFO="${WM_INFO}%{U$COLOR_OCCUPIED}%{+u} ${name} %{-u}%{F-}"
+						;;
+					f*)
+						# inactive desktop
+						WM_INFO="${WM_INFO}%{U$COLOR_INACTIVE} ${name} %{F-}"
+						;;
+					u*)
+						# urgent desktop
+						WM_INFO="${WM_INFO}%{U$COLOR_URGENT}%{+u} ${name} %{-u}%{F-}"
+						;;
+				esac
+				shift
+			done
+			;;
+	esac
+	printf "%s\n" "${NAME}${WM_INFO}${SYSTEM_INFO}"
+done

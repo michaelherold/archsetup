@@ -1,0 +1,72 @@
+#!/bin/sh
+
+source $(dirname $0)/panel.cfg
+
+err() {
+  echo "$1"
+  exit 1
+}
+
+usage() {
+  echo "usage: notify_volume [option] [argument]"
+  echo
+  echo "Options:"
+  echo "   +, -i, --increase  - increase volume by \`argument'"
+  echo "   -, -d, --decrease  - decrease volume by \`argument'"
+  echo "   !, -t, --toggle    - toggle mute status"
+  echo "   -h, --help         - display this help"
+  exit
+}
+
+level() {
+  amixer get Master | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq
+}
+
+state() {
+  amixer get Master | sed -n 's/^.*\[\(o[nf]\+\)]$/\1/p' | uniq
+}
+
+case "$1" in
+  '+'|'-i'|'--increase')
+    [ -z "$2" ] && err "No argument specified for increase"
+    AMIXARG="${2}%+"
+    ;;
+  '-'|'-d'|'--decrease')
+    [ -z "$2" ] && err "No argument specified for decrease"
+    AMIXARG="${2}%-"
+    ;;
+  '!'|'-t'|'--toggle')
+    AMIXARG="toggle"
+    ;;
+  ''|'-h'|'--help')
+    usage
+    ;;
+  *)
+    err "Unrecognized option \`$1', see notify_volume --help"
+esac
+
+amixer set Master $AMIXARG > /dev/null
+
+if [[ `state` != "on" ]]; then
+  ICON=""
+elif [[ `level` -lt 30 ]]; then
+  ICON=""
+else
+  ICON=""
+fi
+
+STEPS=$(echo "100 / $VOLUME_BAR_LENGTH" | bc)
+CURRENT_STEP=$(echo "`level` / $STEPS" | bc)
+
+for i in `seq 1 $VOLUME_BAR_LENGTH`; do
+  if [[ `state` != "on" ]]; then
+    BAR+=" "
+  elif [ $i -lt $CURRENT_STEP ]; then
+    BAR+="%{F$COLOR_ACTIVE}${VOLUME_BAR_CHAR}%{F-}"
+  else
+    BAR+="%{F$COLOR_OCCUPIED}${VOLUME_BAR_CHAR}%{F-}"
+  fi
+done
+
+$(dirname $0)/notify "%{F$COLOR_ICON}$ICON%{F-}  [$BAR]" &
+mplayer "$VOLUME_CHANGE_CLIP" > /dev/null &
