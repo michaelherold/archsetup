@@ -1,6 +1,14 @@
 #!/bin/bash
 
+WM=bspwm
+
 # Make sure this is before the 'exec' command or it won't be sourced.
 [ -f /etc/xprofile ] && source /etc/xprofile
 [ -f ~/.xprofile ] && source ~/.xprofile
 
+case "$WM" in
+  bspwm)
+    sxhkd &
+    exec $WM
+  ;;
+esac
