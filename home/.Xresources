@@ -13,7 +13,7 @@ URxvt*scrollBar:        false
 URxvt*scrollBar_right:  true
 URxvt*scrollstyle:      rxvt
  
-URxvt.transparent:  true
+URxvt.transparent:  false
 !URxvt.tintColor:    Grey
 URxvt.shading:      30
 !URxvt.blurRadius:   5
