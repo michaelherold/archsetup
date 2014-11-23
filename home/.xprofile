@@ -5,6 +5,7 @@ XMODMAP=$HOME/.Xmodmap
 
 xsetroot -cursor_name left_ptr
 xset +fp /usr/share/fonts/local
+xset +fp $HOME/.fonts/panel
 xset fp rehash
 
 if [ -f "$XMODMAP" ] ; then
