@@ -16,7 +16,7 @@ bspc config top_padding $PANEL_HEIGHT
 
 # Bar contents
 bspc control --subscribe > "$PANEL_FIFO" &
-clock -sf 'S%D %l:%M%P' > "$PANEL_FIFO" &
+clock -sf "S%{B$BG_CLOCK}  $DIVIDER %{F$FG_CLOCKNUM}%d %{F$FG_CLOCK}%b $DIVIDER %{F$FG_CLOCK}%l:%M%P $CLEAR" > "$PANEL_FIFO" &
 
 # Notifications
 $(dirname $0)/notify_mpd -d &
