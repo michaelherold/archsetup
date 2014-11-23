@@ -7,7 +7,7 @@ dzenpid="${dzenpid:2}"
 
 if [ $1 == "Mu" ]; then # The music popup is NOT a slider, so it must be treated separately
   title="Music"
-  message=" ^ca(1,$(dirname $0)/coverart)^fg(#da4939)^ca()^ca(1,$(dirname $0)/run-or-raise ncmpcpp &)^fg(#bc9458)^ca()   "
+  message=" ^ca(1,$(dirname $0)/coverart)^fg($DZEN_FG_URGENT)^ca()^ca(1,$(dirname $0)/run-or-raise ncmpcpp &)^fg($DZEN_FG_ICON)^ca()   "
 else
   case $1 in
     Vl) # Master volume
@@ -20,7 +20,7 @@ else
   currentValue=$(($currentValue*10/$maxValue))
 
   ## MAKE THE SLIDER ##
-  slider="^fg($FG_SELECTED)"
+  slider="^fg($DZEN_FG_SELECTED)"
   for i in {1..10}
   do
     # Add the command to change the value
@@ -52,4 +52,4 @@ else
 fi
 
 # Add close button and send the message to the fifo read by dzen
-echo " $title $message  ^ca(1,$(dirname $0)/dslider close)^fg(5a647e)^fg()^ca()" > $DSLIDER_FIFO
+echo " $title $message  ^ca(1,$(dirname $0)/dslider close)^fg($DZEN_FG_CLOSE)^fg()^ca()" > $DSLIDER_FIFO

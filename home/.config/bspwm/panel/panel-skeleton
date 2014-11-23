@@ -7,27 +7,21 @@ source $(dirname $0)/panel.cfg
 while read -r line ; do
   case $line in
     S*)
-      # clock output
-      SYSTEM_INFO="%{r}${line#?}"
+      CLOCK=="%{r}${line#?}"
       ;;
     c*)
-      # panel-monitor
       MONITOR="${line#?}"
       ;;
     m*)
-      # not-stat
       NOTSTAT="${line#?}"
       ;;
     y*)
-      # panel-music
       MUSIC="${line#?}"
       ;;
     n*)
-      # unmapped windows
       UNMAPPED="${line#?}"
       ;;
     W*)
-      # bspwm internal state
       WM_INFO=""
       IFS=':'
       set -- ${line#?}
@@ -69,5 +63,5 @@ while read -r line ; do
       done
       ;;
   esac
-  printf "%s\n" "${WM_INFO}${MONITOR}${MUSIC}${NOTSTAT} %{c}${LAYOUT} %{r}${SYSTEM_INFO}${UNMAPPED}"
+  printf "%s\n" "${WM_INFO}${MONITOR}${MUSIC}${NOTSTAT} %{c}${LAYOUT} %{r}%{A:$(dirname $0)/dcal &:}${CLOCK}%{A}${UNMAPPED}"
 done
