@@ -93,7 +93,7 @@ super + Return
 	urxvt
 
 super + space
-	dmenu_run
+  ~/bin/dmenu_wrapper
 
 # make sxhkd reload its configuration files:
 super + Escape
