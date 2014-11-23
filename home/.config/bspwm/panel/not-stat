@@ -37,7 +37,7 @@ rst=$'\e[0m'
 case $1 in
   Mu) ## Music ##
     icon="$(mpc | grep -E 'playing|paused' | cut -d'[' -f2 | cut -d']' -f1 | sed 's/paused//g' | sed 's/playing//g')"
-    message=" $(mpc current -f '%title%|%file%')"
+    message=" $(mpc current)"
     if [ "$message" = " " ];then
       icon=""
       message=" (Nothing!)"
@@ -96,7 +96,7 @@ echo -E "$premessage" "%{B$BG_ICON}%{F$FG_ICON}%{A:$execute:} $icon %{A}%{B$BG_N
 sleep $countdown
 
 icon="$(mpc | grep -E 'playing|paused' | cut -d'[' -f2 | cut -d']' -f1 | sed 's/paused//g' | sed 's/playing//g')"
-message=" $(mpc current -f '%title%|%file%')"
+message=" $(mpc current)"
 if [ "$message" = " " ];then
   icon=""
   message=" (Nothing!)"
