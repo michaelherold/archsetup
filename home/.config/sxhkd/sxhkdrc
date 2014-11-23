@@ -104,22 +104,22 @@ super + Escape
 # ===================================================================
 
 XF86AudioRaiseVolume
-  $HOME/.config/bspwm/panel/notify_volume + 5
+  amixer set Master 5%+; pkill not-stat; $HOME/.config/bspwm/panel/not-stat Vl
 
 XF86AudioLowerVolume
-  $HOME/.config/bspwm/panel/notify_volume - 5
+  amixer set Master 5%-; pkill not-stat; $HOME/.config/bspwm/panel/not-stat Vl
 
 XF86AudioMute
-  $HOME/.config/bspwm/panel/notify_volume !
+  amixer set Master toggle; pkill not-stat; $HOME/.config/bspwm/panel/not-stat Mt
 
 XF86AudioPlay
-  $HOME/.config/bspwm/panel/notify_mpd -t
+  mpc toggle
 
 XF86AudioNext
-  $HOME/.config/bspwm/panel/notify_mpd -n
+  mpc next
 
 XF86AudioPrev
-  $HOME/.config/bspwm/panel/notify_mpd -p
+  mpc prev
 
 XF86HomePage
   chromium
