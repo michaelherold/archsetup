@@ -21,6 +21,9 @@ clock -sf "S%{B$BG_CLOCK}  $DIVIDER %{F$FG_CLOCKNUM}%d %{F$FG_CLOCK}%b $DIVIDER 
 # Notifications
 $(dirname $0)/notify_mpd -d &
 
+# 1. Set up the listener to the panel FIFO
+# 2. Start bar with the configured options
+# 3. Listen to STDOUT for any commands that bar outputs (click handler)
 cat "$PANEL_FIFO" \
   | $(dirname $0)/panel-skeleton \
   | bar \
@@ -28,6 +31,6 @@ cat "$PANEL_FIFO" \
         -f "$PANEL_FONT_FAMILY" \
         -F "$FG_BASE" \
         -B "$BG_BASE" \
-        -u "$LINEHEIGHT" &
+  | while read line; do eval "$line"; done &
 
 wait
