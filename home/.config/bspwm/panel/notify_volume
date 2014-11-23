@@ -62,11 +62,11 @@ for i in `seq 1 $VOLUME_BAR_LENGTH`; do
   if [[ `state` != "on" ]]; then
     BAR+=" "
   elif [ $i -lt $CURRENT_STEP ]; then
-    BAR+="%{F$COLOR_ACTIVE}${VOLUME_BAR_CHAR}%{F-}"
+    BAR+="%{F$FG_ACTIVE}${VOLUME_BAR_CHAR}%{F-}"
   else
-    BAR+="%{F$COLOR_OCCUPIED}${VOLUME_BAR_CHAR}%{F-}"
+    BAR+="%{F$FG_OCCUPIED}${VOLUME_BAR_CHAR}%{F-}"
   fi
 done
 
-$(dirname $0)/notify "%{F$COLOR_ICON}$ICON%{F-}  [$BAR]" &
+$(dirname $0)/notify "%{F$FG_ICON}$ICON%{F-}  [$BAR]" &
 mplayer "$VOLUME_CHANGE_CLIP" > /dev/null &

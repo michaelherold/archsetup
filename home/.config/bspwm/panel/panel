@@ -1,13 +1,13 @@
 #!/bin/sh
 
-source $(dirname $0)/panel.cfg
-
 if [ $(pgrep -cx panel) -gt 1 ] ; then
   printf "%s\n" "The panel is already running." >&2
   exit 1
 fi
 
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+source $(dirname $0)/panel.cfg
 
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
@@ -16,19 +16,18 @@ bspc config top_padding $PANEL_HEIGHT
 
 # Bar contents
 bspc control --subscribe > "$PANEL_FIFO" &
-echo "T" > "$PANEL_FIFO" &
 clock -sf 'S%D %l:%M%P' > "$PANEL_FIFO" &
 
 # Notifications
 $(dirname $0)/notify_mpd -d &
 
 cat "$PANEL_FIFO" \
-  | $(dirname $0)/panel_bar \
+  | $(dirname $0)/panel-skeleton \
   | bar \
         -g "$PANEL_GEOMETRY" \
         -f "$PANEL_FONT_FAMILY" \
-        -F "$COLOR_FOREGROUND" \
-        -B "$COLOR_BACKGROUND" \
+        -F "$FG_BASE" \
+        -B "$BG_BASE" \
         -u "$LINEHEIGHT" &
 
 wait
