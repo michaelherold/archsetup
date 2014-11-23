@@ -33,4 +33,6 @@ cat "$PANEL_FIFO" \
         -B "$BG_BASE" \
   | while read line; do eval "$line"; done &
 
+$(dirname $0)/not-stat Mu &
+
 wait

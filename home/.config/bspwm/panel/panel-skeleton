@@ -8,7 +8,23 @@ while read -r line ; do
   case $line in
     S*)
       # clock output
-      SYSTEM_INFO="%{r}${line#?} "
+      SYSTEM_INFO="%{r}${line#?}"
+      ;;
+    c*)
+      # panel-monitor
+      MONITOR="${line#?}"
+      ;;
+    m*)
+      # not-stat
+      NOTSTAT="${line#?}"
+      ;;
+    y*)
+      # panel-music
+      MUSIC="${line#?}"
+      ;;
+    n*)
+      # unmapped windows
+      UNMAPPED="${line#?}"
       ;;
     W*)
       # bspwm internal state
@@ -45,7 +61,7 @@ while read -r line ; do
             ;;
           L*)
             # Layout
-            LAYOUT="%{B$BG_MONOCLE}%{F$FG_MONOCLE}$(printf "%s" "$(echo ${name} |sed 's/tiled//g' |sed 's/monocle/%{A:bspc desktop -l next:} (Click to exit Monocle) %{A}/g')")%{B-}%{F-}"
+            LAYOUT="%{B$BG_MONOCLE}%{F$FG_MONOCLE}$(printf "%s" "$(echo ${name} | sed 's/tiled//g' | sed 's/monocle/%{A:bspc desktop -l next:} (Click to exit Monocle) %{A}/g')")%{B-}%{F-}"
             WM_INFO="%{B$BG_LAUNCHER}%{F$FG_LAUNCHER}%{A:$CMD_LAUNCHER:}$ICON_LAUNCHER%{A}%{B$BG_TAGS}%{F$FG_TAGS}${WM_INFO} "
             ;;
         esac
@@ -53,5 +69,5 @@ while read -r line ; do
       done
       ;;
   esac
-  printf "%s\n" "${WM_INFO}${LAYOUT}${SYSTEM_INFO}"
+  printf "%s\n" "${WM_INFO}${MONITOR}${MUSIC}${NOTSTAT} %{c}${LAYOUT} %{r}${SYSTEM_INFO}${UNMAPPED}"
 done
