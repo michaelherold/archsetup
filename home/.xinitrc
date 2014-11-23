@@ -10,6 +10,7 @@ case "$WM" in
   bspwm)
     sxhkd &
     dunst &
+    mpdcron &
     exec $WM
   ;;
 esac
