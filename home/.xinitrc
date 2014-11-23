@@ -9,6 +9,7 @@ WM=bspwm
 case "$WM" in
   bspwm)
     sxhkd &
+    dunst &
     exec $WM
   ;;
 esac
