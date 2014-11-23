@@ -1,16 +1,9 @@
 #!/bin/bash
 
-WM=bspwm
+WM=bspwm-session
 
 # Make sure this is before the 'exec' command or it won't be sourced.
 [ -f /etc/xprofile ] && source /etc/xprofile
 [ -f ~/.xprofile ] && source ~/.xprofile
 
-case "$WM" in
-  bspwm)
-    sxhkd &
-    dunst &
-    mpdcron &
-    exec $WM
-  ;;
-esac
+exec $WM
