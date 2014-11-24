@@ -95,6 +95,15 @@ super + Return
 super + space
   ~/bin/dmenu_wrapper
 
+super + z
+  $HOME/.config/bspwm/panel/whid dmenu
+
+super + shift + z
+  $HOME/.config/bspwm/panel/whid hide
+
+super + alt + z
+  $HOME/.config/bspwm/panel/whid last
+
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
