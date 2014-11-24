@@ -53,6 +53,9 @@ super + bracket{left,right}
 super + ctrl + {h,j,k,l}
 	bspc window -p {left,down,up,right}
 
+super + ctrl + p
+  bspc window -p cancel
+
 # Resize splits
 super + alt + {h,j,k,l}
 	bspc window -e {left -10,down +10,up -10,right +10}
@@ -73,11 +76,11 @@ super + {minus,equal}
 ~button1
 	bspc pointer -g focus
 
-# ???, ???, and resize with right mouse button
+# Move and resize window with mouse buttons
 super + button{1-3}
 	bspc pointer -g {move,resize_side,resize_corner}
 
-# ???
+# Send coordinates to window when holding mouse buttons down
 super + !button{1-3}
 	bspc pointer -t %i %i
 
