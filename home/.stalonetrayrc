@@ -1,0 +1,8 @@
+background "#2b2b2b"
+geometry 1x1+1774+1
+grow_gravity W
+icon_gravity E
+icon_size 18
+skip_taskbar
+window_strut none
+window_layer top

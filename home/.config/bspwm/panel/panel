@@ -34,5 +34,6 @@ cat "$PANEL_FIFO" \
   | while read line; do eval "$line"; done &
 
 $(dirname $0)/not-stat Mu &
+stalonetray &
 
 wait
