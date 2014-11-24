@@ -1,4 +1,3 @@
-
 feh --bg-fill ~/.config/fehbg &
 compton --config ~/.config/compton.conf &
 start-pulseaudio-x11 &

@@ -14,9 +14,7 @@ URxvt*scrollBar_right:  true
 URxvt*scrollstyle:      rxvt
  
 URxvt.transparent:  false
-!URxvt.tintColor:    Grey
 URxvt.shading:      30
-!URxvt.blurRadius:   5
 
 ! }}}
 ! => Font configuration {{{
@@ -29,14 +27,6 @@ Xft.hintstyle:  hintfull
 Xft.lcdfilter:  lcddefault
 Xft.rgba:       rgb
 
-! Xft: Bitstream Vera Sans Mono
-!URxvt*font: xft:Bitstream Vera Sans Mono:pixelsize=12
-!URxvt*boldFont: xft:Bitstream Vera Sans Mono:bold:pixelsize=12
-
-! Xft: DejaVu Sans Mono
-!URxvt*font: xft:DejaVu Sans Mono:pixelsize=18
-!URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=18
-!
 ! Xft: Droid Sans Mono
 URxvt*font:     xft:Droid Sans Mono:pixelsize=12, xft:Droid Sans Mono for Powerline
 URxvt*boldFont: xft:Droid Sans Mono:bold:pixelsize=12, xft:Droid Sans Mono for Powerline
@@ -46,28 +36,6 @@ URxvt.letterSpace: -1
 ! }}}
 ! => Color Configuration {{{
 ! =====================================================================
-!URxvt*background:   #272822
-!URxvt*foreground:   #f8f8f2
-!URxvt*cursorColor:  #f8f8f2
-!URxvt*colorUL:      #31658C
-
-! Base16-Default color scheme
-! #define base00 #151515
-! #define base01 #202020
-! #define base02 #303030
-! #define base03 #505050
-! #define base04 #b0b0b0
-! #define base05 #d0d0d0
-! #define base06 #e0e0e0
-! #define base07 #f5f5f5
-! #define base08 #ac4142
-! #define base09 #d28445
-! #define base0A #f4bf75
-! #define base0B #90a959
-! #define base0C #75b5aa
-! #define base0D #6a9fb5
-! #define base0E #aa759f
-! #define base0F #8f5536
 
 ! Base16-Railscasts color scheme
 #define base00 #2b2b2b
@@ -86,24 +54,6 @@ URxvt.letterSpace: -1
 #define base0D #6d9cbe
 #define base0E #b6b3eb
 #define base0F #bc9458
-
-! Tango color scheme
-! #define base00 #2e3436
-! #define base01 #cc0000
-! #define base02 #4e9a06
-! #define base03 #edd400
-! #define base04 #3465a4
-! #define base05 #92659a
-! #define base06 #07c7ca
-! #define base07 #d3d7cf
-! #define base08 #6e706b
-! #define base09 #ef2929
-! #define base0A #8ae234
-! #define base0B #fce94f
-! #define base0C #729fcf
-! #define base0D #c19fbe
-! #define base0E #63e9e9
-! #define base0F #eeeeec
 
 ! Assignment
 *foreground:   base05
@@ -134,6 +84,7 @@ URxvt.letterSpace: -1
 *color19:      base02
 *color20:      base04
 *color21:      base06
+
 ! }}}
 ! => Perl Extensions {{{
 ! =====================================================================
@@ -157,4 +108,5 @@ URxvt.keysym.M-s:       perl:keyboard-select:search
 ! URL Select
 URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.url-select.launcher: /usr/bin/xdg-open
+
 ! }}}

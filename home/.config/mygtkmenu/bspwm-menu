@@ -2,112 +2,111 @@
 
 Submenu = Window
 
-	icon = NULL
+  icon = NULL
 
-	item = Floating
-	cmd = bspc window -t floating
-	icon = NULL
+  item = Floating
+  cmd = bspc window -t floating
+  icon = NULL
 
-	item = Monocle
-	cmd = bspc desktop -l next
-	icon = NULL
+  item = Monocle
+  cmd = bspc desktop -l next
+  icon = NULL
 
-	item = Fullscreen
-	cmd = bspc window -t fullscreen
-	icon = NULL
+  item = Fullscreen
+  cmd = bspc window -t fullscreen
+  icon = NULL
 
-	item = Pseudo-tiling
-	cmd = bspc window -t pseudo_tiled
-	icon = NULL
+  item = Pseudo-tiling
+  cmd = bspc window -t pseudo_tiled
+  icon = NULL
 
-	item = Lock
-	cmd = bspc window -t locked
-	icon = NULL
+  item = Lock
+  cmd = bspc window -t locked
+  icon = NULL
 
-	item = Sticky
-	cmd = bspc window -t sticky
-	icon = NULL
+  item = Sticky
+  cmd = bspc window -t sticky
+  icon = NULL
 
-	item = Private
-	cmd = bspc window -t private
-	icon = NULL
+  item = Private
+  cmd = bspc window -t private
+  icon = NULL
 
 Submenu = Move to...
 
-	icon = NULL
+  icon = NULL
 
-	item = Desktop n°...
-	cmd = bspc-zen move-to-desktop
-	icon = NULL
+  item = Desktop n°...
+  cmd = bspc-zen move-to-desktop
+  icon = NULL
 
-	item = Next empty desktop
-	cmd = bspcp empty move
-	icon = NULL
+  item = Next empty desktop
+  cmd = bspcp empty move
+  icon = NULL
 
-	item = Last focused desktop
-	cmd = bspc window -d last
-	icon = NULL
+  item = Last focused desktop
+  cmd = bspc window -d last
+  icon = NULL
 
-	separator
+  separator
 
-	item = Swap with biggest window
-	cmd = bspc window -w biggest.local
-	icon = NULL
+  item = Swap with biggest window
+  cmd = bspc window -w biggest.local
+  icon = NULL
 
-	item = Move to another monitor
-	cmd =
-	icon = NULL
-
+  item = Move to another monitor
+  cmd =
+  icon = NULL
 
 Submenu = Manual
 
-	icon = NULL
+  icon = NULL
 
-	Submenu = Manual split
+  Submenu = Manual split
 
-		icon = NULL
+    icon = NULL
 
-		item = Up
-		cmd = bspc window -p up
-		icon = NULL
+    item = Up
+    cmd = bspc window -p up
+    icon = NULL
 
-		item = Right
-		cmd = bspc window -p right
-		icon = NULL
+    item = Right
+    cmd = bspc window -p right
+    icon = NULL
 
-		item = Left
-		cmd = bspc window -p left
-		icon = NULL
+    item = Left
+    cmd = bspc window -p left
+    icon = NULL
 
-		item = Down
-		cmd = bspc window -p down
-		icon = NULL
+    item = Down
+    cmd = bspc window -p down
+    icon = NULL
 
-	Submenu = Split ratio
+  Submenu = Split ratio
 
-		icon = NULL
+    icon = NULL
 
-		item = 25%
-		cmd = bspc window -r 0.25
-		icon = NULL
+    item = 25%
+    cmd = bspc window -r 0.25
+    icon = NULL
 
-		item = 50%
-		cmd = bspc window -r 0.5
-		icon = NULL
+    item = 50%
+    cmd = bspc window -r 0.5
+    icon = NULL
 
-		item = 75%
-		cmd = bspc window -r 0.75
-		icon = NULL
+    item = 75%
+    cmd = bspc window -r 0.75
+    icon = NULL
 
-	separator
+  separator
 
-	item = Move to last manual split
-	cmd = bspc window -w last.manual
-	icon = NULL
+  item = Move to last manual split
+  cmd = bspc window -w last.manual
+  icon = NULL
 
-	item = Cancel all splits
-	cmd = bspc desktop -c
-	icon = NULL
+  item = Cancel all splits
+  cmd = bspc desktop -c
+  icon = NULL
 
 
 separator
