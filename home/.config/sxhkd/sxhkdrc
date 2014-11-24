@@ -3,7 +3,7 @@
 
 # Exit bspwm
 super + alt + Escape
-	bspc quit
+	pkill -x panel; bspc quit
 
 # Toggle panels
 super + q
