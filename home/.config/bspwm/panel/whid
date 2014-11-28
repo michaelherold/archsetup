@@ -17,16 +17,19 @@ updatePanel() {
 
   if [ "$lines" -eq "0" ]
   then
-    echo "n%{A:$(dirname $0)/whid dzen &:}%{B$WHID_BG_NONE} $lines %{B-}%{A}" > $PANEL_FIFO
+    color=$WHID_BG_NONE
   else
-    echo "n%{A:$(dirname $0)/whid dzen &:}%{B$WHID_BG_SOME} $lines %{B-}%{A}" > $PANEL_FIFO
+    color=$WHID_BG_SOME
   fi
+
+  echo "n%{A:$(dirname $0)/whid dzen &:}%{B$color} $lines %{B-}%{A}" > $PANEL_FIFO
 }
+
+lines=$(wc -l < $WHID_LIST)
+miniList=$(cat $WHID_LIST)
 
 case $1 in
   hide)
-    lines=$(wc -l < $WHID_LIST)
-
     if [[ $lines -ge 9 ]]; then ## Fight against bad practices
       notify-send "Nine windows are already hidden" "You should consider closing some before hiding even more." -i warning
     else
@@ -41,15 +44,9 @@ case $1 in
     fi
     ;;
   init)
-    lines=$(wc -l < $WHID_LIST)
-
     updatePanel $lines
     ;;
   dmenu)
-    miniList=$(cat $WHID_LIST)
-
-    # Dmenu cannot draw more than 30 lines
-    lines=$(wc -l < $WHID_LIST)
     if [[ $lines -gt 30 ]]; then
       linesDisplayed=30
     else
@@ -98,14 +95,10 @@ case $1 in
     xdo show $selectedID && sed -i "${lineNumber}d" $WHID_LIST && updatePanel $(($lines - 1))
     ;;
   last)
-    lines=$(wc -l < $WHID_LIST)
     selectedID=$(tail -n 1 $WHID_LIST | cut -d ' ' -f 1)
     xdo show $selectedID && sed -i "${lineNumber}d" $WHID_LIST && updatePanel $(($lines - 1))
     ;;
   dzen)
-    miniList=$(cat $WHID_LIST)
-    lines=$(wc -l < $WHID_LIST)
-
     # Perform necessary checks
     [ "$lines" -eq "0" ] && exit
 
