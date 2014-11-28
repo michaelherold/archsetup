@@ -7,7 +7,7 @@ source $(dirname $0)/panel.cfg
 while read -r line ; do
   case $line in
     S*)
-      CLOCK=="%{r}${line#?}"
+      CLOCK="${line#?}"
       ;;
     c*)
       MONITOR="${line#?}"
@@ -63,5 +63,5 @@ while read -r line ; do
       done
       ;;
   esac
-  printf "%s\n" "${WM_INFO}${MONITOR}${MUSIC}${NOTSTAT} %{c}${LAYOUT} %{r}%{A:$(dirname $0)/dcal &:}${CLOCK}%{A}${UNMAPPED}"
+  printf "%s\n" "${WM_INFO}${MONITOR}${MUSIC}${NOTSTAT} %{c}${LAYOUT} %{r}${UNMAPPED}%{A:$(dirname $0)/dcal &:}${CLOCK}%{A}"
 done

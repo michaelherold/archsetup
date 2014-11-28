@@ -17,9 +17,9 @@ updatePanel() {
 
   if [ "$lines" -eq "0" ]
   then
-    echo "n" > $PANEL_FIFO
+    echo "n%{A:$(dirname $0)/whid dzen &:}%{B$WHID_BG_NONE} $lines %{B-}%{A}" > $PANEL_FIFO
   else
-    echo "n%{A:$(dirname $0)/whid dzen &:}%{B$WHID_BG} $lines %{B-}%{A}" > $PANEL_FIFO
+    echo "n%{A:$(dirname $0)/whid dzen &:}%{B$WHID_BG_SOME} $lines %{B-}%{A}" > $PANEL_FIFO
   fi
 }
 
@@ -27,8 +27,8 @@ case $1 in
   hide)
     lines=$(wc -l < $WHID_LIST)
 
-    if [[ $lines -ge 10 ]]; then ## Fight against bad practices
-      notify-send "Ten windows are already hidden" "You should consider closing some before hiding even more." -i warning
+    if [[ $lines -ge 9 ]]; then ## Fight against bad practices
+      notify-send "Nine windows are already hidden" "You should consider closing some before hiding even more." -i warning
     else
       focusedDesktop=$(xdotool get_desktop)
       focusedID=$(xdo id)
@@ -39,6 +39,11 @@ case $1 in
         updatePanel $(($lines + 1)) &&\
         notify-send "A window has been hidden (${lines})." "$focusedName" -i warning
     fi
+    ;;
+  init)
+    lines=$(wc -l < $WHID_LIST)
+
+    updatePanel $lines
     ;;
   dmenu)
     miniList=$(cat $WHID_LIST)
