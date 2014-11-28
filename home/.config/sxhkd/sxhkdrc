@@ -21,6 +21,9 @@ super + t
 super + b
   bspc desktop -B
 
+super + r
+  bspc desktop -R 90
+
 # Toggle floating and fullscreen modes
 super + {s,f}
   bspc window -t {floating,fullscreen}
