@@ -3,11 +3,11 @@
 
 # Exit bspwm
 super + alt + Escape
-  pkill -x panel; bspc quit
+  pkill -x panel; pkill stalonetray; bspc quit
 
 # Toggle panels
 super + q
-  pkill panel; pkill cat; $HOME/.config/bspwm/panel/panel &
+  pkill panel; pkill cat; pkill stalonetray; $HOME/.config/bspwm/panel/panel &
 
 # Close the current window
 super + w
