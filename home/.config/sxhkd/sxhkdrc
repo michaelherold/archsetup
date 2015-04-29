@@ -113,6 +113,9 @@ super + alt + z
 super + v
   ~/bin/switch-headphones
 
+Print
+  zscreen
+
 # make sxhkd reload its configuration files:
 super + Escape
   pkill -USR1 -x sxhkd
