@@ -110,6 +110,9 @@ super + shift + z
 super + alt + z
   $HOME/.config/bspwm/panel/whid last
 
+super + v
+  ~/bin/switch-headphones
+
 # make sxhkd reload its configuration files:
 super + Escape
   pkill -USR1 -x sxhkd
