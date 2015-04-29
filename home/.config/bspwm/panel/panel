@@ -19,7 +19,7 @@ bspc control --subscribe > "$PANEL_FIFO" &
 clock -sf "S%{B$BG_CLOCK} $DIVIDER %{F$FG_CLOCKNUM}%d %{F$FG_CLOCK}%b $DIVIDER %{F$FG_CLOCK}%l:%M%P $CLEAR" > "$PANEL_FIFO" &
 
 # Notifications
-$(dirname $0)/notify_mpd -d &
+# $(dirname $0)/notify_mpd -d &
 
 # 1. Set up the listener to the panel FIFO
 # 2. Start bar with the configured options
