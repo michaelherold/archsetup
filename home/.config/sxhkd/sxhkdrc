@@ -21,6 +21,7 @@ super + t
 super + b
   bspc desktop -B
 
+# Rotate leaves in desktop 90 degrees
 super + r
   bspc desktop -R 90
 
@@ -56,6 +57,7 @@ super + bracket{left,right}
 super + ctrl + {h,j,k,l}
   bspc window -p {left,down,up,right}
 
+# Cancel window preselection
 super + ctrl + p
   bspc window -p cancel
 
