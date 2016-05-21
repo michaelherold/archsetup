@@ -5,93 +5,97 @@
 super + alt + Escape
   pkill -x panel; pkill stalonetray; bspc quit
 
-# Toggle panels
-super + q
-  pkill panel; pkill cat; pkill stalonetray; $HOME/.config/bspwm/panel/panel &
-
-# Close the current window
-super + w
-  bspc window -c
+# Close the current node
+super + c
+  bspc node -c
 
 # Cycle the layout of the desktop
 super + t
   bspc desktop -l next
 
-# Balance the windows so they occupy the same area
+# Balance the nodes so they occupy the same area
 super + b
-  bspc desktop -B
+  bspc node @focused:/ -B
 
 # Rotate leaves in desktop 90 degrees
-super + r
-  bspc desktop -R 90
+super + {_,shift +} r
+  bspc node @focused:/ -R {_,-}90
 
 # Toggle floating and fullscreen modes
 super + {s,f}
-  bspc window -t {floating,fullscreen}
+  bspc node -t \~{floating,fullscreen}
 
 # Switch to the last desktop
 super + {grave,Tab}
-  bspc {window,desktop} -f last
+  bspc {node,desktop} -f last
 
-# Swap window with the last one
+# Swap node with the last one
 super + apostrophe
-  bspc window -s last
+  bspc node -s last
 
-# Move window to biggest split on desktop
+# Move node to biggest split on desktop
 super + m
-  bspc window -s biggest
+  bspc node -s biggest
 
-# Shift window focus and swap windows
+# Shift node focus and swap nodes
 super + {_,shift + }{h,j,k,l}
-  bspc window -{f,s} {left,down,up,right}
+  bspc node -{f,s} {west,south,north,east}
 
 # Circulate leaves on the desktop
 super + {comma,period}
-  bspc desktop -C {backward,forward}
+  bspc node @focused:/ -C {backward,forward}
 
 # Next and previous desktop
 super + bracket{left,right}
   bspc desktop -f {prev,next}
 
-# Preselect window for splitting
+# Preselect node for splitting
 super + ctrl + {h,j,k,l}
-  bspc window -p {left,down,up,right}
+  bspc node -p {west,south,north,east}
 
-# Cancel window preselection
+# Cancel node preselection
 super + ctrl + p
-  bspc window -p cancel
+  bspc node -p cancel
 
 # Resize splits
 super + alt + {h,j,k,l}
-  bspc window -e {left -10,down +10,up -10,right +10}
+  bspc node -e {west -10,south +10,north -10,east +10}
 
-# Resize splits (in reverse)
-super + alt + shift + {h,j,k,l}
-  bspc window -e {right -10,up +10,down -10,left +10}
-
-# Change to and move window to desktop
-super + {_,shift + }{1-9,0}
-  bspc {desktop -f,window -d} ^{1-9,10}
-
-# Change window gap
+# Change node gap
 super + {minus,equal}
-  bspc config -d focused window_gap $((`bspc config -d focused window_gap` {+,-} 2))
+  bspc config -n focused window_gap $((`bspc config -n focused window_gap` {+,-} 2))
 
-# Focus window on click
+# Focus node on click
 ~button1
   bspc pointer -g focus
 
-# Move and resize window with mouse buttons
+# Move and resize node with mouse buttons
 super + button{1-3}
   bspc pointer -g {move,resize_side,resize_corner}
 
-# Send coordinates to window when holding mouse buttons down
+# Send coordinates to node when holding mouse buttons down
 super + !button{1-3}
   bspc pointer -t %i %i
 
 # Stop action when releasing the buttons
 super + @button{1-3}
   bspc pointer -u
+
+# Focus the left/right monitor
+super + {q,w}
+  bspc monitor -f {L,R}
+
+# Move the selected node/desktop to the west/east monitor
+super + {shift,alt} + {q,w}
+  bspc {node,desktop} -m {L,R}
+
+# Create/rename a desktop
+super + {_,ctrl} + d
+  ~/bin/bspwm_{_,re}name_desktop
+
+# Remove the focused desktop
+super + alt + d
+  bspc desktop focused -r
 
 # }}}
 # => Launchers {{{
